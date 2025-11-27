@@ -1,6 +1,7 @@
 <template>
   <div
-      class="flex-col items-center text-center w-[300px] rounded-4xl p-4 bg-white shadow-2xl flex gap-2 max-h-fit select-none"
+      class="flex-col items-center text-center w-[300px] bg-white shadow-2xl rounded-4xl p-4 flex gap-2 max-h-fit select-none"
+      ref="cardRoot"
   >
     <div class="flex justify-between w-full px-1">
       <p
@@ -60,4 +61,9 @@ defineProps<{
   date?: string
   time?: string
 }>()
+const cardRoot = ref<HTMLElement | null>(null)
+
+defineExpose({
+  getEl: () => cardRoot.value
+})
 </script>

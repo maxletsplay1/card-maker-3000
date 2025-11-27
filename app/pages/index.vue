@@ -53,9 +53,10 @@
     </div>
       <ImageLoader @save="setImage" />
     </div>
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center gap-2">
       <EventCard
-          class="shrink-0 border md:-mt-10"
+          ref="eventCardRef"
+          class="shrink-0 border"
           :qr="qr"
           :header="form.header"
           :description="form.description"
@@ -64,6 +65,12 @@
           :date="dateTime[0]"
           :time="dateTime[1]"
       />
+      <UButton
+          label="Скачать"
+          size="xl"
+          trailing-icon="lucide:download"
+          @click="downloadImage"
+      />
     </div>
   </div>
 </template>
@@ -71,10 +78,12 @@
 
 <script setup>
 import { CalendarDate, Time } from '@internationalized/date'
+import html2canvas from 'html2canvas-pro'
 import generateQr from "~/composables/generateQr.ts";
 const inputDateRef = ref(null);
-const now = new Date()
+const eventCardRef = ref(null);
 
+const now = new Date()
 const form = reactive({
   header: "Заголовок",
   description: "",
@@ -116,6 +125,25 @@ const setImage = (image) => {
   form.image = image;
 };
 
+const downloadImage = async () => {
+  const el = eventCardRef.value?.getEl?.()
+
+  if (!el) {
+    console.warn('Элемент не найден')
+    return
+  }
+
+  const canvas = await html2canvas(el, {
+    scale: 3,
+    useCORS: true
+  })
+
+  const link = document.createElement('a')
+  link.download = `${form.header}(${dateTime.value[0]}).png`
+  link.href = canvas.toDataURL('image/png')
+  link.click()
+}
+
 watch(
     () => qrOptions.value,
     async (opts) => {
@@ -123,4 +151,5 @@ watch(
     },
     { deep: true, immediate: true }
 );
+
 </script>
