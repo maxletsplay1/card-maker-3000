@@ -54,17 +54,19 @@
       <ImageLoader @save="setImage" />
     </div>
     <div class="flex flex-col items-center justify-center gap-2">
-      <EventCard
-          ref="eventCardRef"
-          class="shrink-0 border"
-          :qr="qr"
-          :header="form.header"
-          :description="form.description"
-          :main-color="form.mainColor"
-          :secondary-color="form.secondaryColor"
-          :date="dateTime[0]"
-          :time="dateTime[1]"
-      />
+      <div class="border rounded-4xl shadow">
+        <EventCard
+            ref="eventCardRef"
+            class="shrink-0"
+            :qr="qr"
+            :header="form.header"
+            :description="form.description"
+            :main-color="form.mainColor"
+            :secondary-color="form.secondaryColor"
+            :date="dateTime[0]"
+            :time="dateTime[1]"
+        />
+      </div>
       <UButton
           label="Скачать"
           size="xl"
@@ -144,12 +146,13 @@ const downloadImage = async () => {
   link.click()
 }
 
-watch(
-    () => qrOptions.value,
-    async (opts) => {
-      qr.value = await generateQr(opts);
-    },
-    { deep: true, immediate: true }
-);
-
+onMounted(() => {
+  watch(
+      () => qrOptions.value,
+      async (opts) => {
+        qr.value = await generateQr(opts);
+      },
+      { deep: true, immediate: true }
+  );
+})
 </script>

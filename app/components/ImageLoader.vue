@@ -6,6 +6,7 @@
       description="PNG или JPG"
       class="h-52 md:h-64 w-full md:w-1/2"
       @change="roundImage(file)"
+      accept="image/jpeg,image/png"
   />
 </template>
 
