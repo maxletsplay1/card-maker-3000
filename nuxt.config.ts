@@ -4,5 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/ui'],
   css: ['~/assets/css/main.css'],
-  ssr: false,
+  ssr: true,
+  nitro: {
+    preset: 'github_pages'
+  }
 })
