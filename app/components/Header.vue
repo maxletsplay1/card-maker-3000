@@ -1,7 +1,7 @@
 <template>
   <div class="flex border-b border-gray-600 justify-between py-2 px-6">
     <div class="flex gap-2">
-      <p class="text-3xl uppercase font-black">Генератор</p>
+      <p class="text-3xl font-black">{{name}}</p>
       <nuxt-link to="https://github.com/maxletsplay1/event-card-generator" target="_blank">
         <img
             class="h-9 w-9"
@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+const name = useRuntimeConfig().public.name
 const colorMode = useColorMode()
 
 const isDark = computed({

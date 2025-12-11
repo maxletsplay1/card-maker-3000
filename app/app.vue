@@ -1,12 +1,14 @@
 <template>
-<NuxtLayout>
-  <NuxtPage/>
-</NuxtLayout>
+  <VitePwaManifest/>
+  <NuxtLayout>
+    <NuxtPage/>
+  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-const title = 'Генератор карточки мероприятия'
-const description = 'Генерирует карточки с QR-кодом. Походит на телеграм. Будет использован 1,5 раза.'
+const config = useRuntimeConfig()
+const title = config.public.name
+const description = config.public.description
 const image = '/og-image.jpg'
 
 useSeoMeta({
@@ -15,7 +17,7 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: description,
   ogImage: image,
-  ogUrl: 'https://maxletsplay-cardgen.vercel.app/',
+  ogUrl: config.public.siteUrl,
   twitterTitle: title,
   twitterDescription: description,
   twitterImage: image,

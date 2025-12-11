@@ -69,6 +69,7 @@
       </div>
       <UButton
           label="Скачать"
+          color="neutral"
           size="xl"
           trailing-icon="lucide:download"
           @click="downloadImage"
@@ -93,7 +94,7 @@ const form = reactive({
   qrlink: "",
   date: new CalendarDate(now.getFullYear(), now.getMonth() + 1, now.getDate()),
   time: new Time(0, 0),
-  mainColor: "#00DC82",
+  mainColor: "#66dc7e",
   secondaryColor: "#020420",
   image: ""
 });
